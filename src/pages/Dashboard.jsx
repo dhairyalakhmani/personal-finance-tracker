@@ -126,9 +126,20 @@ export default function Dashboard() {
                                         }`}>
                                         {tx.category.charAt(0)}
                                     </div>
-                                    <div>
-                                        <p className="text-sm font-medium text-slate-900 dark:text-slate-100 line-clamp-1">{tx.title}</p>
-                                        <p className="text-xs text-slate-500 dark:text-slate-400">{new Date(tx.date).toLocaleDateString()}</p>
+                                    <div className="flex-1 min-w-0 pr-2">
+                                        <div className="flex items-center gap-2">
+                                            <p className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
+                                                {tx.title}
+                                            </p>
+                                            {tx.recurring && (
+                                                <span className="flex-shrink-0 inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wide uppercase bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/30">
+                                                    Recurring
+                                                </span>
+                                            )}
+                                        </div>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                                            {new Date(tx.date).toLocaleDateString()}
+                                        </p>
                                     </div>
                                 </div>
                                 <div className={`text-sm font-semibold whitespace-nowrap ${tx.type === 'income' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-700 dark:text-slate-300'

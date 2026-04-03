@@ -7,7 +7,6 @@ export default function Sidebar({ toggleTheme, isDarkMode }) {
     { name: 'Transactions', path: '/transactions', icon: <FiList className="w-5 h-5" /> },
     { name: 'Add New', path: '/transactions/new', icon: <FiPlusCircle className="w-5 h-5" /> },
     { name: 'Budget', path: '/budget', icon: <FiTarget className="w-5 h-5" /> },
-    { name: 'Analytics', path: '/analytics', icon: <FiTrendingUp className="w-5 h-5" /> },
   ];
 
   return (

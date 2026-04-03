@@ -6,10 +6,9 @@ import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
 import AddTransaction from "./pages/AddTransaction";
 import Budget from "./pages/Budget";
-import Analytics from "./pages/Analytics";
 
 function App() {
-  const[isDarkMode, setIsDarkMode] = useState(false);
+  const[isDarkMode, setIsDarkMode] = useState(true);
 
   function toggleTheme(){
     setIsDarkMode(!isDarkMode);
@@ -31,7 +30,6 @@ function App() {
           <Route path="transactions" element={<Transactions />}></Route>
           <Route path="transactions/new" element={<AddTransaction />}></Route>
           <Route path="budget" element={<Budget />}></Route>
-          <Route path="analytics" element={<Analytics />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

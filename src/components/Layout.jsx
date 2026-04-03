@@ -8,9 +8,7 @@ export default function Layout({ toggleTheme, isDarkMode }) {
       <Sidebar toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
       
       <main className="flex-1 h-full overflow-y-auto">
-        <div className="p-8 max-w-7xl mx-auto">
-          {/* LOGIC: React Router will render your page components here */}
-           
+        <div className="p-8 max-w-7xl mx-auto"> 
           <Outlet /> 
         </div>
       </main>

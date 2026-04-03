@@ -23,7 +23,6 @@ export default function AddTransaction() {
     addTransaction({
       ...data,
       amount: Number(data.amount),
-      recurring: false
     });
 
     toast.success('Transaction added successfully!');
@@ -76,7 +75,17 @@ export default function AddTransaction() {
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Date</label>
               <input
                 type="date"
-                {...register('date', { required: 'Date is required' })}
+                {...register('date', {
+                  required: 'Date is required',
+                  max: {
+                    value: '2100-12-31',
+                    message: 'Year cannot exceed 2100'
+                  },
+                  min: {
+                    value: '2000-01-01',
+                    message: 'Year must be 2000 or later'
+                  }
+                })}
                 className="w-full px-4 py-2.5 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-navy-border rounded-lg text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 outline-none transition-all [color-scheme:light] dark:[color-scheme:dark]"
               />
               {errors.date && <p className="text-red-500 text-sm mt-1">{errors.date.message}</p>}
@@ -126,6 +135,18 @@ export default function AddTransaction() {
               className="w-full px-4 py-2.5 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-navy-border rounded-lg text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 outline-none transition-all resize-none"
             ></textarea>
             {errors.notes && <p className="text-red-500 text-sm mt-1">{errors.notes.message}</p>}
+          </div>
+
+          <div className="flex items-center gap-3 p-4 bg-indigo-50/50 dark:bg-indigo-500/5 rounded-lg border border-indigo-100 dark:border-indigo-500/20">
+            <input
+              type="checkbox"
+              id="recurring"
+              {...register('recurring')}
+              className="w-5 h-5 text-indigo-600 bg-white border-gray-300 rounded focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-navy-surface focus:ring-2 dark:bg-slate-800 dark:border-slate-600 cursor-pointer"
+            />
+            <label htmlFor="recurring" className="text-sm font-medium text-slate-700 dark:text-slate-300 cursor-pointer select-none">
+              Mark as a recurring transaction (e.g., Subscriptions, Rent)
+            </label>
           </div>
 
           <div className="pt-4 border-t border-gray-200 dark:border-navy-border">

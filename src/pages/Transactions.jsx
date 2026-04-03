@@ -10,6 +10,7 @@ export default function Transactions() {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [filterType, setFilterType] = useState('all');
+    const [sortBy, setSortBy] = useState('date-desc');
 
     const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
@@ -19,6 +20,22 @@ export default function Transactions() {
             (tx.notes && tx.notes.toLowerCase().includes(debouncedSearchTerm.toLowerCase()));
         const matchesFilter = filterType === 'all' || tx.type === filterType;
         return matchesSearch && matchesFilter;
+    });
+
+    const sortedTransactions = [...filteredTransactions].sort((a, b) => {
+        if (sortBy === 'date-desc') {
+            return new Date(b.date) - new Date(a.date);
+        }
+        if (sortBy === 'date-asc') {
+            return new Date(a.date) - new Date(b.date);
+        }
+        if (sortBy === 'amount-desc') {
+            return b.amount - a.amount;
+        }
+        if (sortBy === 'amount-asc') {
+            return a.amount - b.amount;
+        }
+        return 0;
     });
 
     return (
@@ -50,6 +67,17 @@ export default function Transactions() {
                     <option value="income">Income Only</option>
                     <option value="expense">Expenses Only</option>
                 </select>
+
+                <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="px-4 py-2 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-navy-border rounded-lg text-slate-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors outline-none cursor-pointer appearance-none"
+                >
+                    <option value="date-desc">Newest First</option>
+                    <option value="date-asc">Oldest First</option>
+                    <option value="amount-desc">Highest Amount</option>
+                    <option value="amount-asc">Lowest Amount</option>
+                </select>
             </div>
 
             <div className="bg-white dark:bg-navy-surface border border-gray-200 dark:border-navy-border rounded-xl shadow-sm overflow-hidden transition-colors duration-300">
@@ -66,15 +94,22 @@ export default function Transactions() {
                         </thead>
                         <tbody className="divide-y divide-gray-200 dark:divide-navy-border">
 
-                            {filteredTransactions.map((tx) => (
+                            {sortedTransactions.map((tx) => (
                                 <tr key={tx.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/20 transition-colors group">
                                     <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 whitespace-nowrap">
                                         {formatDate(new Date(tx.date), 'dd MMM yyyy')}
                                     </td>
                                     <td className="px-6 py-4">
-                                        <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
-                                            {tx.title}
-                                        </p>
+                                        <div className="flex items-center gap-2">
+                                            <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
+                                                {tx.title}
+                                            </p>
+                                            {tx.recurring && (
+                                                <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wide uppercase bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/30">
+                                                    Recurring
+                                                </span>
+                                            )}
+                                        </div>
                                         <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                                             {tx.notes}
                                         </p>
