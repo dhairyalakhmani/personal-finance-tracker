@@ -9,7 +9,7 @@ export default function Budget() {
     const [newBudgetAmount, setNewBudgetAmount] = useState(budget.monthlyBudget);
 
     const sameMonthExpenses = transactions.filter(tx =>
-        tx.type === 'expense' && isSameMonth(new Date(tx.date), new Date())
+        tx.type.toLowerCase() === 'expense' && isSameMonth(new Date(tx.date), new Date())
     );
     const totalSpent = sameMonthExpenses.reduce((a, b) => a + b.amount, 0);
     const remainingBudget = budget.monthlyBudget - totalSpent;
