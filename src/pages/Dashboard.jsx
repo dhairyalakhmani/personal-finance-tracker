@@ -1,6 +1,7 @@
 import { FiTrendingUp, FiTrendingDown, FiDollarSign } from 'react-icons/fi';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { useTransactions } from '../hooks/useTransactions';
+import CurrencyConverter from '../components/CurrencyConverter';
 
 export default function Dashboard() {
     const { transactions } = useTransactions();
@@ -75,7 +76,7 @@ export default function Dashboard() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
+                <CurrencyConverter />
                 <div className="bg-white dark:bg-navy-surface border border-gray-200 dark:border-navy-border rounded-xl shadow-sm p-6 transition-colors duration-300">
                     <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-6">Expense Breakdown</h2>
 
