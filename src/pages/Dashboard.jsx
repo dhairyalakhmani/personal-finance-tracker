@@ -37,7 +37,6 @@ export default function Dashboard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-
                 <div className="bg-white dark:bg-navy-surface border border-gray-200 dark:border-navy-border rounded-xl shadow-sm p-6 transition-colors duration-300 flex items-center gap-4">
                     <div className="w-12 h-12 rounded-full bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                         <FiDollarSign className="w-6 h-6" />
@@ -75,8 +74,9 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                 <CurrencyConverter />
+                
                 <div className="bg-white dark:bg-navy-surface border border-gray-200 dark:border-navy-border rounded-xl shadow-sm p-6 transition-colors duration-300">
                     <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-6">Expense Breakdown</h2>
 
@@ -111,91 +111,62 @@ export default function Dashboard() {
                         </div>
                     )}
                 </div>
+            </div>
 
-                <div className="bg-white dark:bg-navy-surface border border-gray-200 dark:border-navy-border rounded-xl shadow-sm p-6 transition-colors duration-300 flex flex-col">
-                    <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Recent Activity</h2>
-                    </div>
-
-                    <div className="flex-1 overflow-y-auto pr-2 space-y-4">
-                        {transactions.slice(0, 4).map((tx) => (
-                            <div key={tx.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800/30 transition-colors border border-transparent hover:border-gray-100 dark:hover:border-navy-border">
-                                <div className="flex items-center gap-3">
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium ${tx.type === 'income'
-                                        ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400'
-                                        : 'bg-indigo-100 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-400'
-                                        }`}>
-                                        {tx.category.charAt(0)}
-                                    </div>
-                                    <div className="flex-1 min-w-0 pr-2">
-                                        <div className="flex items-center gap-2">
-                                            <p className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
-                                                {tx.title}
-                                            </p>
-                                            {tx.recurring && (
-                                                <span className="flex-shrink-0 inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wide uppercase bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/30">
-                                                    Recurring
-                                                </span>
-                                            )}
-                                        </div>
-                                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                                            {new Date(tx.date).toLocaleDateString()}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className={`text-sm font-semibold whitespace-nowrap ${tx.type === 'income' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-700 dark:text-slate-300'
-                                    }`}>
-                                    {tx.type === 'income' ? '+' : '-'}₹{tx.amount.toLocaleString()}
-                                </div>
-                            </div>
-                        ))}
-
-                        {transactions.length === 0 && (
-                            <div className="flex flex-col items-center justify-center py-10 px-4 text-center animate-fade-in h-full">
-
-                                <svg
-                                    viewBox="0 0 64 64"
-                                    className="w-16 h-16 mb-4"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M14 38L20 50H44L50 38"
-                                        className="fill-slate-50 dark:fill-slate-800/30 stroke-slate-200 dark:stroke-slate-700 transition-colors duration-300"
-                                        strokeWidth="2"
-                                        strokeLinejoin="round"
-                                    />
-                                    <path
-                                        d="M14 38H50"
-                                        className="stroke-slate-200 dark:stroke-slate-700 transition-colors duration-300"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                    />
-                                    <circle
-                                        cx="32" cy="22" r="12"
-                                        className="fill-white dark:fill-navy-surface stroke-slate-300 dark:stroke-slate-500 transition-colors duration-300"
-                                        strokeWidth="2"
-                                    />
-                                    <path
-                                        d="M24 30L40 14"
-                                        className="stroke-slate-300 dark:stroke-slate-500 transition-colors duration-300"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                    />
-                                </svg>
-
-                                <p className="text-slate-700 dark:text-slate-300 font-medium text-sm mb-1">
-                                    No recent activity
-                                </p>
-                                <p className="text-slate-500 dark:text-slate-400 text-xs max-w-[200px]">
-                                    Your latest transactions will automatically appear here.
-                                </p>
-
-                            </div>
-                        )}
-                    </div>
+            <div className="bg-white dark:bg-navy-surface border border-gray-200 dark:border-navy-border rounded-xl shadow-sm p-6 transition-colors duration-300">
+                <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Recent Activity</h2>
                 </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {transactions.slice(0, 4).map((tx) => (
+                        <div key={tx.id} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800/30 transition-colors border border-gray-100 dark:border-navy-border">
+                            <div className="flex items-center gap-3">
+                                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium ${tx.type === 'income'
+                                    ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400'
+                                    : 'bg-indigo-100 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-400'
+                                    }`}>
+                                    {tx.category.charAt(0)}
+                                </div>
+                                <div className="flex-1 min-w-0 pr-2">
+                                    <div className="flex items-center gap-2">
+                                        <p className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
+                                            {tx.title}
+                                        </p>
+                                        {tx.recurring && (
+                                            <span className="flex-shrink-0 inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wide uppercase bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/30">
+                                                Recurring
+                                            </span>
+                                        )}
+                                    </div>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                                        {new Date(tx.date).toLocaleDateString()}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className={`text-sm font-semibold whitespace-nowrap ${tx.type === 'income' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-700 dark:text-slate-300'}`}>
+                                {tx.type === 'income' ? '+' : '-'}₹{tx.amount.toLocaleString()}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {transactions.length === 0 && (
+                    <div className="flex flex-col items-center justify-center py-10 px-4 text-center animate-fade-in w-full">
+                        <svg viewBox="0 0 64 64" className="w-16 h-16 mb-4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 38L20 50H44L50 38" className="fill-slate-50 dark:fill-slate-800/30 stroke-slate-200 dark:stroke-slate-700 transition-colors duration-300" strokeWidth="2" strokeLinejoin="round" />
+                            <path d="M14 38H50" className="stroke-slate-200 dark:stroke-slate-700 transition-colors duration-300" strokeWidth="2" strokeLinecap="round" />
+                            <circle cx="32" cy="22" r="12" className="fill-white dark:fill-navy-surface stroke-slate-300 dark:stroke-slate-500 transition-colors duration-300" strokeWidth="2" />
+                            <path d="M24 30L40 14" className="stroke-slate-300 dark:stroke-slate-500 transition-colors duration-300" strokeWidth="2" strokeLinecap="round" />
+                        </svg>
+                        <p className="text-slate-700 dark:text-slate-300 font-medium text-sm mb-1">
+                            No recent activity
+                        </p>
+                        <p className="text-slate-500 dark:text-slate-400 text-xs max-w-[200px]">
+                            Your latest transactions will automatically appear here.
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     );

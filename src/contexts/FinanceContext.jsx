@@ -11,7 +11,7 @@ const mockTransactions = [
   { id: uuidv4(), title: 'Netflix', amount: 649, category: 'Subscriptions', type: 'expense', date: new Date().toISOString(), notes: 'Standard Plan', recurring: true },
 ];
 
-export function FinanceProvider({ children }) {
+export function FinanceProvider({ children }) { 
     const [transactions, setTransactions] = useState(() => {
         const savedTransactions = localStorage.getItem('finance_transactions');
         return savedTransactions ? JSON.parse(savedTransactions) : mockTransactions;
