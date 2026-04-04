@@ -19,11 +19,7 @@ export default function CurrencyConverter() {
             }
             setIsLoading(true);
             try {
-                const baseURL = import.meta.env.MODE === 'development'
-                    ? '/api/frankfurter'
-                    : 'https://api.frankfurter.app';
-
-                const response = await axios(`${baseURL}/latest`, {
+                const response = await axios('https://api.frankfurter.app/latest', {
                     params: {
                         amount: amount,
                         from: fromCurrency,
