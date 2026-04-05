@@ -3,8 +3,11 @@ import { useTransactions } from '../hooks/useTransactions';
 import { formatDate } from 'date-fns';
 import { FiSearch, FiTrash2, FiEdit2 } from 'react-icons/fi';
 import { useDebounce } from '../hooks/useDebounce';
+import { useNavigate } from 'react-router-dom';
 
 export default function Transactions() {
+
+    const navigate = useNavigate();
 
     const { transactions, deleteTransaction } = useTransactions();
 
@@ -120,7 +123,6 @@ export default function Transactions() {
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        {/* LOGIC HINT: Change text color based on tx.type (green for income, red/slate for expense) */}
                                         <span className={`text-sm font-semibold ${tx.type === 'income'
                                             ? 'text-emerald-600 dark:text-emerald-400'
                                             : 'text-slate-700 dark:text-slate-300'
@@ -131,6 +133,7 @@ export default function Transactions() {
                                     <td className="px-6 py-4 whitespace-nowrap text-right">
                                         <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <button
+                                                onClick={() => navigate(`/transactions/edit/${tx.id}`)}
                                                 className="p-2 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-500/10"
                                                 title="Edit"
                                             >

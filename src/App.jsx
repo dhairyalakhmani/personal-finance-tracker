@@ -4,7 +4,7 @@ import Layout from "./components/Layout";
 
 import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
-import AddTransaction from "./pages/AddTransaction";
+import TransactionForm from "./pages/TransactionForm";
 import Budget from "./pages/Budget";
 
 function App() {
@@ -28,7 +28,8 @@ function App() {
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />}></Route>
           <Route path="transactions" element={<Transactions />}></Route>
-          <Route path="transactions/new" element={<AddTransaction />}></Route>
+          <Route path="/transactions/edit/:id" element={<TransactionForm />} />
+          <Route path="transactions/new" element={<TransactionForm />}></Route>
           <Route path="budget" element={<Budget />}></Route>
         </Route>
       </Routes>
