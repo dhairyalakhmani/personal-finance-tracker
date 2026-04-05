@@ -112,13 +112,15 @@ export default function CurrencyConverter() {
 
         <div className="mt-6 pt-6 border-t border-gray-100 dark:border-navy-border/50">
             <p className="text-sm text-slate-500 dark:text-slate-400 text-center mb-1">Converted Amount</p>
-            <div className="text-3xl font-bold text-center text-slate-900 dark:text-slate-100 truncate">
+            <div className="text-3xl font-bold text-center text-slate-900 dark:text-slate-100 truncate min-h-[40px] flex items-center justify-center">
                 {isLoading ? (
-                    <span className="text-slate-300 dark:text-slate-600 animate-pulse">Calculating...</span>
-                ) : convertedAmount !== null && convertedAmount !== "Error" ? (
-                    `${getFlagEmoji(toCurrency)} ${convertedAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${toCurrency}`
-                ) : (
+                    <span className="text-slate-300 dark:text-slate-600 animate-pulse text-xl">Calculating...</span>
+                ) : convertedAmount === null ? (
+                    <span className="text-slate-300 dark:text-slate-600 text-xl font-normal">0.00 {toCurrency}</span>
+                ) : convertedAmount === "Error" ? (
                     <span className="text-red-500 text-xl">API Error</span>
+                ) : (
+                    `${getFlagEmoji(toCurrency)} ${convertedAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${toCurrency}`
                 )}
             </div>
         </div>
